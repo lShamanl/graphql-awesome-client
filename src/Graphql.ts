@@ -8,7 +8,10 @@ const stubOutputSchema: string = '{__}';
 class Graphql {
   public url: string;
   public auth: Auth;
-  public serverError: boolean;
+  public serverError: {
+    happen: boolean,
+    log: string
+  };
   protected config: {
     template: {
       stubInputSchema: string;
@@ -24,7 +27,10 @@ class Graphql {
   constructor(url: string, updateUserData: Function) {
     this.url = url;
     this.auth = new Auth(updateUserData);
-    this.serverError = false;
+    this.serverError = {
+      happen: false,
+      log: null
+    };
     this.config = {
       template: {
         stubInputSchema: stubInputSchema,
@@ -56,8 +62,11 @@ class Graphql {
         }
       )
       .catch((error) => {
-        this.serverError = true;
-        console.log(error);
+        this.serverError = {
+          happen: true,
+          log: error
+        };
+        throw error;
       });
   }
 
