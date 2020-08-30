@@ -1,12 +1,11 @@
 {
   "name": "graphql-awesome-client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Model GraphQL-client",
   "main": "Graphql.ts",
   "scripts": {
     "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "test": "node ./test/build.js"
+    "build": "webpack --mode production"
   },
   "author": "lShamanl",
   "license": "ISC",

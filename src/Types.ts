@@ -14,6 +14,11 @@ class Types {
     return this.isset(data) ? !!data : null;
   }
 
+  static object(data: any): Object
+  {
+    return this.isset(data) ? Object(data) : null;
+  }
+
   /**
    * Проверка переменной на существование
    * @param data
