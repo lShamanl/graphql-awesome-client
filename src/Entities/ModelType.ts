@@ -13,15 +13,6 @@ abstract class ModelType extends BaseType {
     return JSON.stringify(this) !== JSON.stringify(model);
   }
 
-  static map(): Object //todo: убрать
-  {
-    return {
-      id: {
-        type: Number,
-      },
-    }
-  }
-
   static mapModify(modelClass: any = null): Object
   {
     let map = !!modelClass ? modelClass.map() : this.map();
@@ -61,12 +52,17 @@ abstract class ModelType extends BaseType {
     let params = {};
     for (let property in map) {
       if (map.hasOwnProperty(property)) {
-        if (!!map[property].input) {
-          params[property] = undefined;
-        }
 
-        if (this[property] !== null) {
-          params[property] = this[property];
+        if (!!map[property].input === true) {
+          params[property] = undefined;
+
+          if (!!this[property] && this[property].getInputSchema !== undefined) {
+            params[property] = this[property].getInputSchema();
+            continue;
+          }
+          if (this[property] !== null) {
+            params[property] = this[property];
+          }
         }
       }
     }
@@ -97,6 +93,10 @@ abstract class ModelType extends BaseType {
         }
         let isScalar = propertyType === Number || propertyType === String || propertyType === Boolean;
         if (isScalar) {
+          schema[property] = null;
+          continue;
+        }
+        if (propertyType === Object) {
           schema[property] = null;
           continue;
         }
@@ -134,6 +134,10 @@ abstract class ModelType extends BaseType {
           this[property] = types.boolean(data[property]);
           continue;
         }
+        if (propertyType === Object) {
+          this[property] = types.object(data[property]);
+          continue;
+        }
 
         if (propertyType.getOutputSchema !== undefined && propertyType.getClassName !== undefined) {
           if (!!types[propertyType.getClassName()] === false) {
@@ -146,6 +150,7 @@ abstract class ModelType extends BaseType {
     }
   }
 
+  static map(): Object { return {} }
 }
 
 export default ModelType;
