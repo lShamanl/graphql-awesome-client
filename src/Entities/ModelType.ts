@@ -1,7 +1,9 @@
 import SchemaGenerator from "../SchemaGenerator";
 import BaseType from "./BaseType";
 
-abstract class ModelType extends BaseType{
+//todo: создать метод-маппер, на основе которого будет происходить атвогенерация getOutputSchema, getInputSchema
+
+abstract class ModelType extends BaseType {
   constructor(data = {}) {
     super(data);
   }

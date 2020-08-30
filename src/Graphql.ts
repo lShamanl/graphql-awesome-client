@@ -24,7 +24,7 @@ class Graphql {
     query: {};
   };
 
-  constructor(url: string, updateUserData: Function) {
+  constructor(url: string, updateUserData?: Function) {
     this.url = url;
     this.auth = new Auth(updateUserData);
     this.serverError = {
@@ -373,6 +373,8 @@ class Graphql {
   {
     if (value instanceof Object) {
       return `${key}:{${Serializer.serialize(value)}}`;
+    } else if (typeof value === "string") {
+      return `${key}:${JSON.stringify(value)}`;
     } else {
       return `${key}:"${value}"`;
     }
