@@ -1,16 +1,13 @@
 import SchemaGenerator from "../SchemaGenerator";
 import BaseType from "./BaseType";
+import {prepareOutputSchema} from "./traits/outputMethods";
 
 abstract class OutputType extends BaseType {
   constructor(data = {}) {
     super(data);
   }
   public static getOutputSchema: Function = SchemaGenerator.getSchema;
-
-  public hasDifferences(model: BaseType): boolean
-  {
-    return JSON.stringify(this) !== JSON.stringify(model);
-  }
+  public static prepareOutputSchema: Function = prepareOutputSchema;
 
 }
 
