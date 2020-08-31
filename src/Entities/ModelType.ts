@@ -15,14 +15,19 @@ abstract class ModelType extends BaseType {
 
   static mapModify(modelClass: any = null): Object
   {
+    let defaultPropertySettings = {
+      type: String,
+      modelProperty: true,
+      input: false,
+      output: true,
+      allowNull: false
+    };
+
     let map = !!modelClass ? modelClass.map() : this.map();
+
     for (let property in map) {
-      //todo: мержить через деструктуризацию
       if (map.hasOwnProperty(property)) {
-        map[property].type === undefined ? map[property].type = String : map[property].type;
-        map[property].modelProperty === undefined ? map[property].modelProperty = true : map[property].modelProperty;
-        map[property].input === undefined ? map[property].input = false : map[property].input;
-        map[property].output === undefined ? map[property].output = true : map[property].output;
+        map[property] = {...defaultPropertySettings, ...map[property]};
       }
     }
 
@@ -43,7 +48,6 @@ abstract class ModelType extends BaseType {
     }
   }
 
-  //todo: сделать это как-то поуниверсальнее, чтобы была возможность передавать null, 0, false и т.д. Возможно это выльется в такой же IssetChecker, как на фронте
   public getInputSchema(): Object
   {
     // @ts-ignore
@@ -54,15 +58,15 @@ abstract class ModelType extends BaseType {
       if (map.hasOwnProperty(property)) {
 
         if (!!map[property].input === true) {
-          params[property] = undefined;
-
           if (!!this[property] && this[property].getInputSchema !== undefined) {
             params[property] = this[property].getInputSchema();
             continue;
           }
-          if (this[property] !== null) {
+          if (this[property] !== null || map[property].allowNull) {
             params[property] = this[property];
+            continue;
           }
+          params[property] = undefined;
         }
       }
     }
@@ -93,6 +97,26 @@ abstract class ModelType extends BaseType {
         }
         let isScalar = propertyType === Number || propertyType === String || propertyType === Boolean;
         if (isScalar) {
+          schema[property] = null;
+          continue;
+        }
+
+        if (typeof propertyType === 'object') {
+          if (propertyType instanceof Array) {
+            propertyType = propertyType[0];
+
+            // Дублекод. Как-то избавиться.
+            if (propertyType.getOutputSchema !== undefined) {
+              schema[property] = propertyType.getOutputSchema();
+              continue;
+            }
+            let isScalar = propertyType === Number || propertyType === String || propertyType === Boolean;
+            if (isScalar) {
+              schema[property] = null;
+              continue;
+            }
+          }
+
           schema[property] = null;
           continue;
         }
