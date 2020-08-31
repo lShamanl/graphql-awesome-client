@@ -20,7 +20,7 @@ class Types {
   }
 
   /**
-   * Проверка переменной на существование
+   * Checking the variable for existence
    * @param data
    */
   static isset(data: any): boolean

@@ -10,7 +10,7 @@ class SchemaGenerator {
   }
 
   /**
-   * Подготовить схему для обращения к API Graphql
+   * Prepare a schema for accessing the Graphql API
    * @param schema
    * @param settings
    * @protected
@@ -34,7 +34,7 @@ class SchemaGenerator {
   }
 
   /**
-   * Оставить в схеме только разрешенные поля
+   * Leave only allowed fields in the diagram
    * @param schema
    * @param allowedFields
    * @protected
@@ -51,7 +51,7 @@ class SchemaGenerator {
   }
 
   /**
-   * Убрать из схемы все запрещенные поля
+   * Remove all prohibited fields from the schema
    * @param schema
    * @param forbiddenFields
    * @protected

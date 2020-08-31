@@ -45,7 +45,7 @@ class Graphql {
   }
 
   /**
-   * Отправить произвольный запрос к серверу Graphql
+   * Send a custom request to the Graphql server
    * @param query
    */
   public send(query: string): Promise<any>
@@ -71,7 +71,7 @@ class Graphql {
   }
 
   /**
-   * Отправить запрос типа Query к серверу Graphql
+   * Send a Query type request to the Graphql server
    * @param path
    * @param inputSchema
    * @param outputSchema
@@ -92,7 +92,7 @@ class Graphql {
   }
 
   /**
-   * Отправить запрос типа Mutation к серверу Graphql
+   * Send a Mutation request to the Graphql server
    * @param path
    * @param inputSchema
    * @param outputSchema
@@ -114,7 +114,7 @@ class Graphql {
   }
 
   /**
-   * Добавить запрос типа Query в очередь отправок к серверу Graphql
+   * Add a Query type request to the queue for sending to the Graphql server
    * @param path
    * @param inputSchema
    * @param outputSchema
@@ -142,7 +142,7 @@ class Graphql {
   }
 
   /**
-   * Добавить запрос типа Mutation в очередь отправок к серверу Graphql
+   * Add a Mutation request to the queue for sending to the Graphql server
    * @param path
    * @param inputSchema
    * @param outputSchema
@@ -170,7 +170,7 @@ class Graphql {
   }
 
   /**
-   * Отправить к серверу Graphql запросы типа Query
+   * Send queries of the Query type to the Graphql server
    * @param namespace
    */
   public pushQueries(namespace: string = defaultNamespace): Promise<any>
@@ -182,7 +182,7 @@ class Graphql {
   }
 
   /**
-   * Отправить к серверу Graphql запросы типа Mutation
+   * Send Mutation requests to the Graphql server
    * @param namespace
    */
   public pushMutations(namespace: string = defaultNamespace): Promise<any>
@@ -194,7 +194,7 @@ class Graphql {
   }
 
   /**
-   * Отправить к серверу Graphql все накопленные запросы
+   * Send all accumulated requests to the Graphql server
    * @param namespace
    */
   public push(namespace: string = defaultNamespace): Promise<any>
@@ -207,7 +207,7 @@ class Graphql {
   }
 
   /**
-   * Очистить очередь запросов типа Query в указанном пространстве имен
+   * To clear the request queue the type of Query in the specified namespace
    * @param namespace
    * @protected
    */
@@ -221,7 +221,7 @@ class Graphql {
   }
 
   /**
-   * Очистить очередь запросов типа Mutation в указанном пространстве имен
+   * To clear the request queue the type of Mutation in the specified namespace
    * @param namespace
    * @protected
    */
@@ -235,7 +235,7 @@ class Graphql {
   }
 
   /**
-   * Подготовить и собрать все запросы типа Query в итоговый формат
+   * Prepare and collect all queries of the Query type in the final format
    * @param namespace
    * @protected
    */
@@ -251,7 +251,7 @@ class Graphql {
   }
 
   /**
-   * Подготовить и собрать все запросы типа Mutation в итоговый формат
+   * Prepare and collect all Mutation queries in the final format
    * @param namespace
    * @protected
    */
@@ -267,7 +267,7 @@ class Graphql {
   }
 
   /**
-   * Биндинг схем входящих параметров и исходящих в шаблон запроса
+   * Binding diagrams of incoming parameters and outgoing parameters in the request template
    * @param template
    * @param inputSchema
    * @param outputSchema
@@ -285,7 +285,7 @@ class Graphql {
   }
 
   /**
-   * Подготовить начальный шаблон запроса (до биндинга параметров схемы)
+   * Prepare the initial request template (before binding the schema parameters)
    * @param path
    * @protected
    */
@@ -303,7 +303,7 @@ class Graphql {
   }
 
   /**
-   * Подстановка схемы входящих параметров (input) в шаблон запроса
+   * Substituting the input parameter schema in the request template
    * @param template
    * @param inputSchema
    * @protected
@@ -315,7 +315,7 @@ class Graphql {
   }
 
   /**
-   * Подстановка схемы возвращаемых данных (output) в шаблон запроса
+   * Substituting the returned data schema (output) in the request template
    * @param template
    * @param outputSchema
    * @protected
@@ -327,7 +327,7 @@ class Graphql {
   }
 
   /**
-   * Подготовка Output-схемы к биндингу в шаблон запроса
+   * Preparing the Output schema for binding to the request template
    * @param outputSchema
    * @protected
    */
@@ -348,7 +348,7 @@ class Graphql {
   }
 
   /**
-   * Подготовка Input-схемы к биндингу в шаблон запроса
+   * Preparing the Input schema for binding to the request template
    * @param inputSchema
    * @protected
    */
@@ -364,7 +364,7 @@ class Graphql {
   }
 
   /**
-   * Подготовка одного параметра Input-схемы к биндингу в шаблон запроса
+   * Preparing a single Input schema parameter for binding to the request template
    * @param key
    * @param value
    * @protected

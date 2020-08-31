@@ -1,9 +1,6 @@
-/**
- * Вспомогательный класс для сериализации данных в формат Graphql
- */
 class Serializer {
   /**
-   * Сериализация данных в формат Graphql
+   * Serialization of data in Graphql format
    * @param object
    * @param withKey
    */
@@ -22,7 +19,7 @@ class Serializer {
   }
 
   /**
-   * Сериализация данных любого типа
+   * Serialization of any type of data
    * @param key
    * @param data
    * @param showKey

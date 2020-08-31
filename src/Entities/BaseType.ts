@@ -4,7 +4,7 @@ abstract class BaseType {
   }
 
   /**
-   * Клонирует текущий объект
+   * Clones the current object
    */
   public clone(): BaseType|{}
   {
@@ -12,9 +12,8 @@ abstract class BaseType {
     return new this.constructor({...this});
   }
 
-
   /**
-   * Метод, являющийся синтаксическим сахаром, который пытается самостоятельно произвести обновление данных в сущности модели(типа)
+   * A method that is a syntactic sugar that tries to update data in the model entity (type)
    * @param data
    * @param types
    */
@@ -56,7 +55,7 @@ abstract class BaseType {
   }
 
   /**
-   * Проверка моделей на идентичность
+   * Model verification of the identity
    * @param model
    */
   public hasDifferences(model: BaseType): boolean
@@ -65,7 +64,7 @@ abstract class BaseType {
   }
 
   /**
-   * Внутренний метод, который выполняет авто-заполнение свойств по умолчанию
+   * Internal method that performs auto-filling of default properties
    * @param modelClass
    */
   static mapModify(modelClass: any = null): Object
@@ -90,18 +89,18 @@ abstract class BaseType {
   }
 
   /**
-   * Мутация текущей сущности
+   * Mutation of the current entity
    * @param data
    */
   abstract mutation(data: Object): void;
 
   /**
-   * Маппер, описывающий поля сущности
+   * Mapper that describes the fields of the entity
    */
   static map(): Object { return {} }
 
   /**
-   * Возвращает название класса (типа GraphQl)
+   * Returns the class name (of the GraphQl type)
    */
   static getClassName(): string { return null }
 }
