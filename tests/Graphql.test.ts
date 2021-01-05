@@ -1,7 +1,8 @@
 import Graphql from "../src/Graphql";
+const faker = require('faker');
 
 const setUp = {
-    url: 'https://webhook.site/bf1231e7-21f1-4949-a1f3-1da51817a916'
+    url: faker.internet.url()
 };
 
 const graphql = new Graphql(setUp.url);
