@@ -1,22 +1,21 @@
 class Graphql {
-  public apiURL: string;
+    public apiURL: string;
 
-  constructor(url: string) {
-    this.apiURL = url;
-  }
+    constructor(apiURL: string) {
+        this.apiURL = apiURL;
+    }
 
-  /**
-   * Send a custom request to the Graphql server
-   * @param query
-   */
-  public async send(query: string): Promise<any>
-  {
-      let response = await fetch(this.apiURL, {
-        method: "POST",
-        body: JSON.stringify({query})
-      })
-      return (await response.json()).data;
-  }
+    /**
+     * Send a custom request to the Graphql server
+     * @param query
+     */
+    public async send(query: string): Promise<any> {
+        let response = await fetch(this.apiURL, {
+            method: "POST",
+            body: JSON.stringify({query})
+        })
+        return (await response.json()).data;
+    }
 }
 
 export default Graphql;

@@ -1,10 +1,10 @@
 const path = require('path');
 
 module.exports = {
-    entry: './test/tests.ts',
+    entry: './tests/tests.ts',
     output: {
         filename: 'build.js',
-        path: path.resolve(__dirname, 'test')
+        path: path.resolve(__dirname, 'tests')
     },
     resolve: {
         extensions: ['.ts', 'tsx', '.js', '.jsx']
