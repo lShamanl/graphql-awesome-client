@@ -3,8 +3,7 @@ import Model from "./Model";
 class Serializer {
     protected dataMappers = new Map();
 
-    constructor() // todo: написать тест
-    {
+    constructor() {
         this.dataMappers.set(null,      nullMapper)
         this.dataMappers.set(undefined, nullMapper)
         this.dataMappers.set(String,    stringMapper)
