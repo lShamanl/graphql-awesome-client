@@ -5,8 +5,10 @@ class NullType extends ScalarType {
         super(name, null);
     }
 
-    render(): string {
-        return `${this.name}:null`;
+    renderAsInput(): string {
+        return (this.name)
+            ? `${this.name}:null`
+            : `null`;
     }
 }
 

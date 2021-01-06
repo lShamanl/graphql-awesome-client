@@ -1,8 +1,10 @@
 import ScalarType from "./ScalarType";
 
 class StringType extends ScalarType {
-    render(): string {
-        return `${this.name}:"${this.value}"`;
+    renderAsInput(): string {
+        return (this.name)
+            ? `${this.name}:"${this.value}"`
+            : `"${this.value}"`;
     }
 }
 

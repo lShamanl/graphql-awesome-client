@@ -20,7 +20,8 @@ abstract class TypeGQ {
         this.value = value;
     }
 
-    abstract render(): string;
+    abstract renderAsInput(): string;
+    abstract renderAsOutput(): string;
 }
 
 export default TypeGQ;

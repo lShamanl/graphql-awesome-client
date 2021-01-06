@@ -1,4 +1,5 @@
 import NullType from "../../src/Types/NullType";
+import BooleanType from "../../src/Types/BooleanType";
 
 const setUp = {
     type: {
@@ -13,12 +14,16 @@ describe('NullType', () => {
         expect(type.name).toBe(setUp.type.name);
     });
 
-    test('render', () => {
+    test('render as input', () => {
         const type = createType();
-        expect(type.render()).toBe(`${type.name}:null`);
+        expect(type.renderAsInput()).toBe(`${type.name}:null`);
+    });
+
+    test('render as output', () => {
+        const type = createType();
+        expect(type.renderAsOutput()).toBe(`${type.name}`);
     });
 });
-
 
 function createType(): NullType {
     return new NullType(setUp.type.name);
