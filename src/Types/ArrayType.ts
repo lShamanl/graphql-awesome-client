@@ -9,7 +9,10 @@ class ArrayType extends TypeGQ {
         let renderValues = [];
         this.value.map((value) => {
             if (value instanceof TypeGQ) {
-                renderValues.push(value.renderAsInput());
+                let clone = value.clone();
+                clone.name = null;
+
+                renderValues.push(clone.renderAsInput());
             } else {
                 let typeConstructor = getTypeConstructor(value);
                 renderValues.push((new typeConstructor(null, value).renderAsInput()));
@@ -22,14 +25,7 @@ class ArrayType extends TypeGQ {
     }
 
     public renderAsOutput(): string {
-        let renderValues = [];
-        this.value.map((value) => {
-            if (value instanceof TypeGQ) {
-                renderValues.push(value.renderAsOutput());
-            }
-        })
-
-        return `${renderValues.join(',')}`;
+        return `${this.name}`;
     }
 }
 
@@ -39,11 +35,12 @@ function getTypeConstructor(value: any) {
     if (typeof value === "undefined") return NullType;
     if (value === null) return NullType;
 
-    switch (Object.prototype.toString.call(value).match(/^\[object\s(.*)\]$/)[1]) {
-        case String: return StringType;
-        case Number: return NumberType;
-        case Boolean: return BooleanType;
+    let className = Object.prototype.toString.call(value).match(/^\[object\s(.*)\]$/)[1];
+    switch (className) {
+        case 'String': return StringType;
+        case 'Number': return NumberType;
+        case 'Boolean': return BooleanType;
     }
 
-    throw new Error('Invalid value type');
+    throw new Error('Invalid value type: ' + className);
 }

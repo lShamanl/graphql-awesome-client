@@ -1,5 +1,4 @@
 import NullType from "../../src/Types/NullType";
-import BooleanType from "../../src/Types/BooleanType";
 
 const setUp = {
     type: {

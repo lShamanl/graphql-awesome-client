@@ -20,6 +20,12 @@ abstract class TypeGQ {
         this.value = value;
     }
 
+    public clone(): TypeGQ
+    {
+        // @ts-ignore
+        return new this.constructor(this.name, this.value);
+    }
+
     abstract renderAsInput(): string;
     abstract renderAsOutput(): string;
 }
