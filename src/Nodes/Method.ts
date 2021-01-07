@@ -1,8 +1,9 @@
 import TypeGQ from "../Types/TypeGQ";
 import NodeGQ from "./NodeGQ";
+import getTypeConstructor from "../functions/getTypeConstructor";
 
 class Method extends NodeGQ {
-    inputs: TypeGQ[];
+    inputs: any[];
     outputs: TypeGQ[];
 
     public render(): string {
@@ -10,11 +11,26 @@ class Method extends NodeGQ {
     }
 
     public renderInputs(): string {
-        return "";
+        let renderValues = [];
+        this.inputs.map((value) => {
+            if (value instanceof TypeGQ) {
+                renderValues.push(value.renderAsInput());
+            } else {
+                let typeConstructor = getTypeConstructor(value);
+                renderValues.push((new typeConstructor(null, value).renderAsInput()));
+            }
+        })
+
+        return `${renderValues.join(',')}`;
     }
 
     public renderOutputs(): string {
-        return "";
+        let renderValues = [];
+        this.outputs.map((type: TypeGQ) => {
+            renderValues.push(type.renderAsOutput());
+        });
+
+        return `${renderValues.join(',')}`;
     }
 }
 

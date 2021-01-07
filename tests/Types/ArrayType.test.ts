@@ -1,7 +1,6 @@
 import ArrayType from "../../src/Types/ArrayType";
 import DatetimeType from "../Implements/Types/DatetimeType";
 
-const faker = require('faker');
 const setUp = {
     type: {
         name: 'arrayType',

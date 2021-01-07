@@ -1,8 +1,5 @@
 import TypeGQ from "./TypeGQ";
-import NullType from "./NullType";
-import StringType from "./StringType";
-import NumberType from "./NumberType";
-import BooleanType from "./BooleanType";
+import getTypeConstructor from "../functions/getTypeConstructor";
 
 class ArrayType extends TypeGQ {
     public renderAsInput(): string {
@@ -30,17 +27,3 @@ class ArrayType extends TypeGQ {
 }
 
 export default ArrayType;
-
-function getTypeConstructor(value: any) {
-    if (typeof value === "undefined") return NullType;
-    if (value === null) return NullType;
-
-    let className = Object.prototype.toString.call(value).match(/^\[object\s(.*)\]$/)[1];
-    switch (className) {
-        case 'String': return StringType;
-        case 'Number': return NumberType;
-        case 'Boolean': return BooleanType;
-    }
-
-    throw new Error('Invalid value type: ' + className);
-}
