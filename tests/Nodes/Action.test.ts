@@ -28,8 +28,5 @@ describe('Action', () => {
 
             expect(node.render()).toBe(`root{action_1{action_2{method(){}}}}`);
         });
-        //todo: исключения
     });
-
-    //todo: рендер инпут, аутпут
 });

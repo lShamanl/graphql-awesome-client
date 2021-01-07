@@ -12,6 +12,10 @@ class Method extends NodeGQ {
 
     public renderInputs(): string {
         let renderValues = [];
+        if (!this.inputs) {
+            return '';
+        }
+
         this.inputs.map((value) => {
             if (value instanceof TypeGQ) {
                 renderValues.push(value.renderAsInput());
@@ -25,6 +29,10 @@ class Method extends NodeGQ {
     }
 
     public renderOutputs(): string {
+        if (!this.outputs) {
+            return '';
+        }
+
         let renderValues = [];
         this.outputs.map((type: TypeGQ) => {
             renderValues.push(type.renderAsOutput());
