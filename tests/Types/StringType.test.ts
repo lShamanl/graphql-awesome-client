@@ -1,9 +1,8 @@
 import StringType from "../../src/Types/StringType";
-const faker = require('faker');
 const setUp = {
     type: {
         name: 'stringType',
-        value: faker.random.string
+        value: 'abc'
     }
 }
 
@@ -26,5 +25,5 @@ describe('StringType', () => {
 });
 
 function createType(): StringType {
-    return new StringType(setUp.type.name, faker.random.string);
+    return new StringType(setUp.type.name, setUp.type.value);
 }
