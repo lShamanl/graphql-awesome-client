@@ -16,17 +16,19 @@ describe('Action', () => {
             const methodName = 'myMethod';
 
             const node = new Action(nodeName);
-            node.method = new Method(methodName);
+            node.addMethod(new Method(methodName));
 
             expect(node.render()).toBe(`${nodeName}{${methodName}(){}}`);
         });
         test('Несколько уровней вложенности', () => {
-            const node = new Action('root');
-            node.subAction = new Action('action_1');
-            node.subAction.subAction = new Action('action_2');
-            node.subAction.subAction.method = new Method('method');
+            const node_1 = new Action('root');
+            const node_2 = new Action('action_1');
+            const node_3 = new Action('action_2');
+            node_1.addSubAction(node_2);
+            node_2.addSubAction(node_3);
+            node_3.addMethod(new Method('method'))
 
-            expect(node.render()).toBe(`root{action_1{action_2{method(){}}}}`);
+            expect(node_1.render()).toBe(`root{action_1{action_2{method(){}}}}`);
         });
     });
 });

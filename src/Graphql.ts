@@ -3,6 +3,7 @@ import getTypeConstructor from "./functions/getTypeConstructor";
 import Action from "./Nodes/Action";
 import Method from "./Nodes/Method";
 import NullType from "./Types/NullType";
+import SendInterface from "./Interfaces/SendInterface";
 
 class Graphql {
     public apiURL: string;
@@ -23,7 +24,7 @@ class Graphql {
         return (await response.json()).data;
     }
 
-    public send(path: string, input: {}, output: {}) {
+    public sendSingle(path: string, input: {}, output: {}) {
         let inputGQ = this.toGraphQlType(input);
         let outputGQ = this.toGraphQlType(output);
 
@@ -31,20 +32,56 @@ class Graphql {
         return this.sendRaw(action.render());
     }
 
-    public query(path: string, input: {}, output: {}): Promise<any> {
+    public sendMultiple(data: SendInterface[]) {
+        let actions: Action[] = [];
+        data.map((sendData: SendInterface) => {
+            let inputGQ = this.toGraphQlType(sendData.input);
+            let outputGQ = this.toGraphQlType(sendData.output);
+
+            actions.push(this.createAction(sendData.path, inputGQ, outputGQ));
+        })
+        actions.reduce((prev: Action, next: Action) => {
+            prev.gobble(next);
+            return prev;
+        });
+
+        return this.sendRaw(actions[0].render());
+    }
+
+    public querySingle(path: string, input: {}, output: {}): Promise<any> {
         if (path.split('.').shift() !== 'query') {
             path = `query.${path}`;
         }
 
-        return this.send(path, input, output);
+        return this.sendSingle(path, input, output);
     }
 
-    public mutation(path: string, input: {}, output: {}): Promise<any> {
+    public queryMultiple(data: SendInterface[]): Promise<any> {
+        data.map((sendData: SendInterface) => {
+            if (sendData.path.split('.').shift() !== 'query') {
+                sendData.path = `query.${sendData.path}`;
+            }
+        })
+
+        return this.sendMultiple(data);
+    }
+
+    public mutationSingle(path: string, input: {}, output: {}): Promise<any> {
         if (path.split('.').shift() !== 'mutation') {
             path = `mutation.${path}`;
         }
 
-        return this.send(path, input, output);
+        return this.sendSingle(path, input, output);
+    }
+
+    public mutationMultiple(data: SendInterface[]): Promise<any> {
+        data.map((sendData: SendInterface) => {
+            if (sendData.path.split('.').shift() !== 'mutation') {
+                sendData.path = `mutation.${sendData.path}`;
+            }
+        })
+
+        return this.sendMultiple(data);
     }
 
     protected toGraphQlType(rawData): TypeGQ[] {
@@ -85,10 +122,10 @@ class Graphql {
         });
 
         actions.reduce((parent: Action, child: Action) => {
-            parent.subAction = child;
+            parent.addSubAction(child);
             return child;
         })
-        actions[actions.length - 1].method = method;
+        actions[actions.length - 1].addMethod(method);
         return actions[0];
     }
 }
