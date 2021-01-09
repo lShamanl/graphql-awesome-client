@@ -21,15 +21,15 @@ class Action extends NodeGQ {
         let rendered = [];
         if (this.subActions.length !== 0) {
             this.subActions.map((subAction: Action) => {
-                rendered.push(`${this.name}{${subAction.render()}}`);
+                rendered.push(`${subAction.render()}`);
             })
         }
         if (this.methods.length !== 0) {
             this.methods.map((method: Method) => {
-                rendered.push(`${this.name}{${method.render()}}`);
+                rendered.push(`${method.render()}`);
             })
         }
-        return rendered.join(',');
+        return `${this.name}{${rendered.join(',')}}`;
     }
 
     gobble(action: Action) {
