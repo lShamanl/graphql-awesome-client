@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-    entry: './build/build.ts',
+    entry: './Client.ts',
     output: {
-        filename: 'build.js',
+        filename: 'Client.js',
         path: path.resolve(__dirname, 'build')
     },
     resolve: {
