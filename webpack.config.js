@@ -1,9 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    entry: './Client.ts',
+    entry: {
+        graphql: './build.ts'
+    },
     output: {
-        filename: 'Client.js',
+        filename: "[name].js",
         path: path.resolve(__dirname, 'build')
     },
     resolve: {

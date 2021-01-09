@@ -1,8 +1,8 @@
 {
   "name": "graphql-awesome-client",
-  "version": "2.0.0",
-  "description": "Model GraphQL-client",
-  "main": "build/Client.js",
+  "version": "2.0.1",
+  "description": "Awesome GraphQL client",
+  "main": "Client.ts",
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
