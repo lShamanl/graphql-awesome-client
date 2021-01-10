@@ -25,20 +25,14 @@ class Graphql {
     }
 
     public sendSingle(path: string, input: {}, output: {}) {
-        let inputGQ = this.toGraphQlType(input);
-        let outputGQ = this.toGraphQlType(output);
-
-        let action = this.createAction(path, inputGQ, outputGQ);
+        let action = this.createAction(path, input, output);
         return this.sendRaw(action.render());
     }
 
     public sendMultiple(data: SendInterface[]) {
         let actions: Action[] = [];
         data.map((sendData: SendInterface) => {
-            let inputGQ = this.toGraphQlType(sendData.input);
-            let outputGQ = this.toGraphQlType(sendData.output);
-
-            actions.push(this.createAction(sendData.path, inputGQ, outputGQ));
+            actions.push(this.createAction(sendData.path, sendData.input, sendData.output));
         })
         actions.reduce((prev: Action, next: Action) => {
             prev.gobble(next);
@@ -86,6 +80,10 @@ class Graphql {
 
     protected toGraphQlType(rawData): TypeGQ[] {
         let typesGQ = [];
+        if (rawData instanceof TypeGQ) {
+            typesGQ.push(rawData);
+            return typesGQ;
+        }
         if (rawData instanceof Array) {
             for (let data of rawData) {
                 typesGQ.push(new NullType(data.toString()));
@@ -105,7 +103,9 @@ class Graphql {
         return typesGQ;
     }
 
-    protected createAction(path: string, inputGQ: TypeGQ[], outputGQ: TypeGQ[]): Action {
+    protected createAction(path: string, input: {}, output: {}): Action {
+        let inputGQ = this.toGraphQlType(input);
+        let outputGQ = this.toGraphQlType(output);
         if (path.length === 0) {
             throw new Error('Path is empty');
         }

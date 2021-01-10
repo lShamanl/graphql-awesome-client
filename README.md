@@ -104,3 +104,11 @@ query{Order{getOne(ProjectAuth:{id:"1",token:"$2y$10$lcZ9X3Ae2uvPwYAXpuWX.u8Pi02
 
 ## Использование
 todo:)
+
+Также существует возможность работать с заранее подготовленными моделями, в которых можно предопределять поля, которые
+должны использоваться в качестве input, какие в качестве output, и проводить прочую тонкую настройку
+(todo: описать про схему)
+```js
+let type = new DatetimeType('TimeType', {time: 'my-time'});
+let action = graphql.createAction('query.action.method', type, type)
+```
